@@ -151,6 +151,9 @@ async function getNextAvailableId(): Promise<number> {
 }
 
 // 指定されたIDが両方のテーブルで使用可能か確認
+// 現在使用していないがユーティリティとして残しておく
+/* istanbul ignore next */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function isIdAvailable(id: number): Promise<boolean> {
   try {
     // URLテーブルでの存在チェック
