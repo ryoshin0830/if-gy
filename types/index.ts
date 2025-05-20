@@ -8,10 +8,24 @@ export interface ShortenedUrl {
     visits: number;
   }
   
+  export interface UploadedFile {
+    id: number;
+    blob_url: string;
+    file_name: string;
+    file_size: number;
+    file_type: string;
+    custom_path?: string | null;
+    created_at: Date;
+    downloads: number;
+  }
+  
   export interface ApiResponse {
     shortUrl?: string;
     customPath?: string;
     error?: string;
+    fileName?: string;
+    fileSize?: number;
+    fileType?: string;
   }
 
   export interface VerifyPasskeyResponse {
@@ -22,6 +36,11 @@ export interface ShortenedUrl {
 
   export interface UrlsResponse {
     urls?: ShortenedUrl[];
+    error?: string;
+  }
+
+  export interface FilesResponse {
+    files?: UploadedFile[];
     error?: string;
   }
 

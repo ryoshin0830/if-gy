@@ -2,10 +2,12 @@
 
 // app/page.tsx
 import UrlShortener from '@/components/UrlShortener';
+import FileUploader from '@/components/FileUploader';
 import { useEffect, useState } from 'react';
 
 export default function HomePage() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [activeTab, setActiveTab] = useState<'url' | 'file'>('url');
   
   // クライアントサイドのみで現在の年を設定
   useEffect(() => {
@@ -59,11 +61,54 @@ export default function HomePage() {
               </svg>
               安全なリンク
             </div>
+            <div className="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-sm text-gray-700 dark:text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              ファイル共有
+            </div>
           </div>
         </div>
         
         <div className="w-full md:w-1/2">
-          <UrlShortener />
+          {/* タブインターフェース */}
+          <div className="mb-5 flex border-b border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setActiveTab('url')}
+              className={`py-3 px-6 text-base font-medium transition-colors flex items-center space-x-2 ${
+                activeTab === 'url'
+                  ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+              <span>URL短縮</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('file')}
+              className={`py-3 px-6 text-base font-medium transition-colors flex items-center space-x-2 ${
+                activeTab === 'file'
+                  ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span>ファイル共有</span>
+            </button>
+          </div>
+          
+          {/* コンポーネント切り替え */}
+          <div className="transition-opacity duration-300">
+            {activeTab === 'url' ? (
+              <UrlShortener />
+            ) : (
+              <FileUploader />
+            )}
+          </div>
         </div>
       </div>
       

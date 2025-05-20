@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "migrate-passkey": "node scripts/migrate-passkey.js",
-    "check-db": "node scripts/check-db.js"
+    "check-db": "node scripts/check-db.js",
+    "init-db": "NODE_OPTIONS='--require dotenv/config' node -r dotenv/config scripts/init-db.mjs"
   },
   "dependencies": {
+    "@vercel/blob": "^1.0.2",
     "@vercel/postgres": "^0.10.0",
     "dotenv": "^16.4.7",
     "framer-motion": "^12.4.7",
